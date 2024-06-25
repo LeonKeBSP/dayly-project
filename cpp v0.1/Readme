@@ -1,0 +1,4 @@
+1.V4L2DeviceScanner类（参考RK安卓hal inputTV模块）实现了对HDMIRX 和HDMICSI类设备的video节点和subdev event节点的扫描，使用三个设备容器来存储三种设备的实例，目前只实现了获取设备的节点路径
+2.hdmicsi设备需要在驱动层实现 subdev ioctl的cmd RKMODULE_GET_MODULE_INFO， 并且要按照官方的evb设备树配置，rockchip,camera-module-name 应该填HDMI-CSIx，x为数字0-3
+需要与remote节点 rkcif_mipi_lvdsx对应 0对应rkcif_mipi_lvds 1对应rkcif_mipi_lvds1节点以此类推
+3.v4l2deviceMonitor类，实现了对v4l2 分辨率事件的监控 采用poll的方式监控v4l2 vdev节点和subdev节点，并且在分辨率改变时获取timing。注意6911需要在拔出或信号非法的时候，将设备实例结构体的timing清空。
